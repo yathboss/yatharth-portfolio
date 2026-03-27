@@ -4,24 +4,24 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
+const navLinks = [
+  { name: "About", href: "#about", section: "about" },
+  { name: "Skills", href: "#skills", section: "skills" },
+  { name: "Projects", href: "#projects", section: "projects" },
+  { name: "Achievements", href: "#achievements", section: "achievements" },
+  { name: "Contact", href: "#contact", section: "contact" },
+];
+
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
-  const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Achievements", href: "#achievements" },
-    { name: "Contact", href: "#contact" },
-  ];
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = navLinks.map((link) => link.name.toLowerCase());
+      const sections = navLinks.map((link) => link.section);
       let current = "";
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -39,43 +39,45 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${
+      className={`fixed top-0 z-50 w-full border-b transition-all duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-white/5 py-4 shadow-sm"
-          : "bg-transparent border-transparent py-6"
+          ? "border-[color:var(--border-subtle)] bg-[rgba(8,8,8,0.8)] py-4 shadow-[0_16px_50px_rgba(0,0,0,0.22)] backdrop-blur-xl"
+          : "border-transparent bg-transparent py-6"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-        <a href="#" className="text-lg md:text-xl font-bold font-mono tracking-tight text-white hover:text-accent transition-colors">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-12">
+        <a
+          href="#"
+          className="font-mono text-lg font-medium tracking-[0.08em] text-white transition-colors hover:text-[var(--accent)] md:text-xl"
+        >
           Yatharth Singh
         </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-accent relative ${
-                activeSection === link.name.toLowerCase()
-                  ? "text-accent"
-                  : "text-foreground/80"
+              className={`relative font-mono text-[0.72rem] uppercase tracking-[0.3em] transition-colors ${
+                activeSection === link.section
+                  ? "text-white"
+                  : "text-[var(--foreground-muted)] hover:text-white"
               }`}
             >
               {link.name}
-              {activeSection === link.name.toLowerCase() && (
+              {activeSection === link.section && (
                 <motion.div
                   layoutId="active-nav"
-                  className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-accent rounded-full"
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  className="absolute -bottom-1.5 left-0 right-0 h-px rounded-full bg-[var(--accent)]"
                 />
               )}
             </a>
           ))}
         </nav>
 
-        {/* Mobile Nav Toggle */}
         <button
-          className="md:hidden text-foreground/80 hover:text-white"
+          className="rounded-full border border-white/10 bg-[rgba(17,17,17,0.75)] p-2 text-[var(--foreground-muted)] transition-colors hover:border-[rgba(232,75,26,0.3)] hover:text-white md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -83,25 +85,25 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Nav Drawer */}
       <AnimatePresence>
-         {mobileMenuOpen && (
+        {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden bg-background/95 backdrop-blur-xl border-b border-white/5"
+            transition={{ duration: 0.26, ease: "easeOut" }}
+            className="overflow-hidden border-b border-[color:var(--border-subtle)] bg-[rgba(8,8,8,0.95)] backdrop-blur-xl md:hidden"
           >
-            <div className="px-6 py-4 flex flex-col gap-4">
+            <div className="flex flex-col gap-4 px-6 py-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`text-base font-medium pb-2 border-b border-white/5 transition-colors ${
-                    activeSection === link.name.toLowerCase()
-                      ? "text-accent"
-                      : "text-foreground/80 hover:text-white"
+                  className={`border-b border-white/5 pb-2 font-mono text-sm uppercase tracking-[0.24em] transition-colors ${
+                    activeSection === link.section
+                      ? "text-[var(--accent)]"
+                      : "text-[var(--foreground-muted)] hover:text-white"
                   }`}
                 >
                   {link.name}

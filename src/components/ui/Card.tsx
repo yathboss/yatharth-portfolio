@@ -12,14 +12,11 @@ interface CardProps {
 export function Card({ children, className = "", delay = 0 }: CardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay }}
-      whileHover={{ y: -5 }}
-      className={`relative overflow-hidden rounded-2xl bg-white/[0.02] border border-white/[0.05] p-6 transition-colors hover:border-accent/40 hover:bg-white/[0.04] group ${className}`}
+      transition={{ duration: 0.24, ease: "easeOut" }}
+      style={delay ? { transitionDelay: `${delay}s` } : undefined}
+      className={`group relative overflow-hidden rounded-[28px] border border-[color:var(--border-subtle)] bg-[var(--surface)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.24)] transition-[border-color,transform,box-shadow,background-color] hover:-translate-y-1 hover:border-[rgba(232,75,26,0.35)] hover:bg-[var(--surface-raised)] hover:shadow-[0_24px_72px_rgba(232,75,26,0.12)] md:p-7 ${className}`}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/0 to-accent/0 opacity-0 transition-opacity duration-300 group-hover:from-accent/5 group-hover:to-transparent group-hover:opacity-100 pointer-events-none" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-[radial-gradient(circle_at_bottom,rgba(232,75,26,0.12),transparent_72%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       <div className="relative z-10">{children}</div>
     </motion.div>
   );

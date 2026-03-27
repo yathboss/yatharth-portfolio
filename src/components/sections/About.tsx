@@ -1,36 +1,50 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Tag } from "@/components/ui/Tag";
 
 export function About() {
+  const focusAreas = [
+    "Full-Stack",
+    "AI/ML",
+    "RAG Systems",
+    "Real-Time Apps",
+    "Product Thinking",
+  ];
+
   return (
-    <section id="about" className="py-24 relative">
-      <div className="max-w-4xl mx-auto px-6">
+    <section id="about" className="relative py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-6 md:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]"
         >
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-accent font-mono text-sm uppercase tracking-wider">
-               About
-            </span>
-            <div className="h-px bg-white/10 flex-1" />
+          <div className="max-w-xl">
+            <p className="mb-4 font-mono text-xs uppercase tracking-[0.32em] text-[var(--accent)]">
+              // about
+            </p>
+            <h2 className="font-[family:var(--font-space-grotesk)] text-4xl font-bold leading-tight tracking-[-0.04em] text-[var(--foreground)] md:text-5xl">
+              Building at the Edge of What&apos;s Possible
+            </h2>
           </div>
-          
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-foreground">Who I Am</h2>
-          
-          <div className="relative pl-6 md:pl-8">
-            {/* Left border decorative accent */}
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-accent to-transparent opacity-50" />
-            
-            <p className="mb-6 text-lg text-foreground/80 leading-relaxed font-light">
-              Yatharth is a Full-Stack Developer and Computer Science student who builds meaningful tech products. His interests span web development, AI/ML, and solving real-world problems through smart, user-focused applications.
+
+          <div className="max-w-3xl">
+            <p className="text-lg leading-8 text-[var(--foreground-muted)] md:text-[1.05rem]">
+              I&apos;m a CS student who ships real products. I&apos;ve built
+              healthcare platforms, AI monitoring systems, and agent
+              marketplaces — each one designed to solve a problem that actually
+              matters. I think in systems. I build with precision. I care about
+              the last 10%.
             </p>
-            <p className="text-lg text-foreground/80 leading-relaxed font-light">
-              He thrives at the intersection of strong logic, clean interfaces, and practical impact — always exploring new tools, improving his craft, and building solutions that go beyond just code.
-            </p>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              {focusAreas.map((item) => (
+                <Tag key={item}>{item}</Tag>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

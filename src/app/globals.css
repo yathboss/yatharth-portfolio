@@ -1,19 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0f;
-  --foreground: #f8fafc;
-  --accent: #6366f1; /* Electric Indigo */
-  --accent-cyan: #06b6d4; /* Cyan-Teal secondary */
+  --background: #080808;
+  --foreground: #f5f5f5;
+  --foreground-muted: #a0a0a0;
+  --accent: #e84b1a;
+  --accent-glow: #ff8c42;
+  --surface: #111111;
+  --surface-raised: #161616;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-accent: rgba(232, 75, 26, 0.3);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
   --color-accent: var(--accent);
-  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-glow: var(--accent-glow);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-accent: var(--border-accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-space-grotesk);
 }
 
 html {
@@ -21,7 +32,21 @@ html {
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(circle at top right, rgba(232, 75, 26, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 34%);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(232, 75, 26, 0.28);
+  color: var(--foreground);
 }
